@@ -10,6 +10,8 @@ import textimage
 from PIL import Image
 from openai import OpenAI
 import google.generativeai as genai
+import io
+from pydub import AudioSegment
 
 st.set_page_config(page_title="Vision of Voice", page_icon="🎤", layout="wide") #making my page title, icon and layout here
 st.image("./media/cover.png", width=1500) #cover image
@@ -80,11 +82,13 @@ def describe_image():
 
 def save_audio():
     if wav_audio_data is not None:
+        audio_segment = AudioSegment.from_file(io.BytesIO(wav_audio_data), format="wav")
+
         update_recording_status("✅ Audio is valid!")
         sound_file = wave.open("sound.wav", "wb")  # Open sound file in write binary mode
-        sound_file.setnchannels(1)  # Set number of channels
-        sound_file.setsampwidth(4)  # Set sample width
-        sound_file.setframerate(44100)  # Set frame rate
+        sound_file.setnchannels(audio_segment.channels)  # Set number of channels
+        sound_file.setsampwidth(audio_segment.sample_width)  # Set sample width
+        sound_file.setframerate(audio_segment.frame_rate)  # Set frame rate
         sound_file.writeframes(wav_audio_data)  # Write frames to file, because frames is list of bytes
         sound_file.close()
     else:

@@ -3,3 +3,4 @@ streamlit
 Wave
 google-generativeai
 streamlit-audiorec
+pydub
