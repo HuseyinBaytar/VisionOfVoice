@@ -73,7 +73,7 @@ def describe_image():
     if st.session_state["latest_image"] is not None:
         with col_image:
             with st.spinner("🔍 Describing image..."):
-                image_description = image_to_text.gemini_vision_img_to_text(client_genai, st.session_state["latest_image"])
+                image_description = imagetext.gemini_vision_img_to_text(client_genai, st.session_state["latest_image"])
                 st.session_state["messages"].append({"role": "bot", "content": image_description})
     else:
         update_recording_status("🚫 No image to describe!")
