@@ -83,7 +83,7 @@ def save_audio():
         update_recording_status("✅ Audio is valid!")
         sound_file = wave.open("sound.wav", "wb")  # Open sound file in write binary mode
         sound_file.setnchannels(1)  # Set number of channels
-        sound_file.setsampwidth(8)  # Set sample width
+        sound_file.setsampwidth(4)  # Set sample width
         sound_file.setframerate(44100)  # Set frame rate
         sound_file.writeframes(wav_audio_data)  # Write frames to file, because frames is list of bytes
         sound_file.close()
